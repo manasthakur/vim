@@ -4399,7 +4399,9 @@ ExpandMappings(
 
 /*
  * Check for an abbreviation.
- * Cursor is at ptr[col]. When inserting, mincol is where insert started.
+ * Cursor is at ptr[col].
+ * When inserting, mincol is where insert started.
+ * For the command line, mincol is what is to be skipped over.
  * "c" is the character typed before check_abbr was called.  It may have
  * ABBR_OFF added to avoid prepending a CTRL-V to it.
  *
@@ -4523,10 +4525,12 @@ check_abbr(
 
 	    if (vim_strbyte(mp->m_keys, K_SPECIAL) != NULL)
 	    {
+		char_u *qe = vim_strsave(mp->m_keys);
+
 		/* might have CSI escaped mp->m_keys */
-		q = vim_strsave(mp->m_keys);
-		if (q != NULL)
+		if (qe != NULL)
 		{
+		    q = qe;
 		    vim_unescape_csi(q);
 		    qlen = (int)STRLEN(q);
 		}

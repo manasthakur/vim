@@ -1,4 +1,4 @@
-*eval.txt*	For Vim version 8.0.  Last change: 2018 Apr 28
+*eval.txt*	For Vim version 8.1.  Last change: 2018 May 17
 
 
 		  VIM REFERENCE MANUAL	  by Bram Moolenaar
@@ -2288,8 +2288,6 @@ mode([expr])			String	current editing mode
 mzeval({expr})			any	evaluate |MzScheme| expression
 nextnonblank({lnum})		Number	line nr of non-blank line >= {lnum}
 nr2char({expr} [, {utf8}])	String	single char with ASCII/UTF8 value {expr}
-option_restore({list})		none	restore options saved by option_save()
-option_save({list})		List	save options values
 or({expr}, {expr})		Number	bitwise OR
 pathshorten({expr})		String	shorten directory names in a path
 perleval({expr})		any	evaluate |Perl| expression
@@ -9938,6 +9936,14 @@ This does NOT work: >
 			deleted when the script ends).  Function-local
 			variables are automatically deleted when the function
 			ends.
+
+:unl[et] ${env-name} ...			*:unlet-environment* *:unlet-$*
+			Remove environment variable {env-name}.
+			Can mix {name} and ${env-name} in one :unlet command.
+			No error message is given for a non-existing
+			variable, also without !.
+			If the system does not support deleting an environment
+			variable, it is made emtpy.
 
 :lockv[ar][!] [depth] {name} ...			*:lockvar* *:lockv*
 			Lock the internal variable {name}.  Locking means that
